@@ -1,5 +1,13 @@
 class PartitionSet {
 
+  /*
+    int n = sum/2;
+    int m = length of int[] num
+    We can use dp[n][m]
+    dp[i][j] means at subset of total sum of i, and the items are from 0 -> m
+    
+  */
+  
   static boolean canPartition(int[] num) {
     //TODO: Write - Your - Code
 
