@@ -2,13 +2,11 @@ class PartitionSet {
 
   static boolean canPartition(int[] num) {
     //TODO: Write - Your - Code
-    // if 'sum' is a an odd number, we can't have two subsets with equal sum
-    int sum = sum(num);
-    if(sum % 2 != 0)
-      return false;
-    return checkNaive2(num, 0, 0, 0,  sum/2);
-  
-    //return checkNaive1(num, 0, new int[num.length-1], 0, new int[num.length-1], 0);
+
+    
+    return checkWithMemo(num, 0, 0, 0,  sum(num) / 2, new HashMap<String, Boolean>());
+    // return checkNaive2(num, 0, 0, 0,  sum(num) / 2);  
+    // return checkNaive1(num, 0, new int[num.length-1], 0, new int[num.length-1], 0);
   }
   
   static int sum(int[]a){
@@ -17,6 +15,28 @@ class PartitionSet {
       sum += i;
     }
     return sum;
+  }
+
+  static boolean checkWithMemo(int[] num, int i, int sumA, int sumB, int max, Map<String, Boolean> map) {
+    if(sumA > max || sumB > max) return false;
+     if(i == num.length){
+      if(sumA== sumB)
+        return true;
+      return false;
+    }
+    String key = sumA+"-"+sumB;
+    if(map.containsKey(key))
+      return map.get(key);
+    // sumA has nums[i]
+    boolean b1 = checkWithMemo(num, i+1, sumA+num[i], sumB, max, map);
+    if(b1){
+      map.put(key, true);
+      return true;
+    }
+    // sumB has nums[i]
+    boolean b2 = checkWithMemo(num, i+1, sumA, sumB+num[i], max, map);
+    map.put(key, b2);
+    return b2;
   }
   static boolean checkNaive2(int[] num, int i, int sumA, int sumB, int max) {
     if(sumA > max || sumB > max) return false;
