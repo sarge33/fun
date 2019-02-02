@@ -32,7 +32,18 @@ class KnapSack {
 
     int helperBottomUp(int[] weights, int[] values, int capacity) {
         int n = weights.length;
+        
+        // initialized item 0 at row 1
         int[][] dp = new int[n+1][capacity+1];
+        
+        /*
+        // Or we can initialized item 0 at row 0
+        int[][] dp = new int[n][capacity+1];
+        for(int c=0; c <= capacity; c++) {
+          if(weights[0] <= c)
+            dp[0][c] = profits[0];
+        }
+        */
         for(int i = 1; i < n+1; ++i) {
             int weightI = weights[i-1];
             int valueI = values[i-1];
