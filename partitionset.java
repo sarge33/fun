@@ -2,8 +2,11 @@ class PartitionSet {
 
   static boolean canPartition(int[] num) {
     //TODO: Write - Your - Code
-
-    return checkNaive2(num, 0, 0, 0,  sum(num) / 2);
+    // if 'sum' is a an odd number, we can't have two subsets with equal sum
+    int sum = sum(num);
+    if(sum % 2 != 0)
+      return false;
+    return checkNaive2(num, 0, 0, 0,  sum/2);
   
     //return checkNaive1(num, 0, new int[num.length-1], 0, new int[num.length-1], 0);
   }
